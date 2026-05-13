@@ -4,11 +4,11 @@ import router from './src/routes/routes';
 
 function createApplication(){
     const app = express();
+     
 
+    app.use(express.json());
 
-    app.get("/api", router)
-    app.use(json());
-    
+    app.use("/api", router);
 
     return app;
 }

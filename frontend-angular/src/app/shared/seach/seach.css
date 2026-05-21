@@ -12,3 +12,8 @@ p-table{
 .fild-search{
   margin-bottom: 2em;
 }
+
+.actions{
+  display: flex;
+  gap: 0.5em;
+}

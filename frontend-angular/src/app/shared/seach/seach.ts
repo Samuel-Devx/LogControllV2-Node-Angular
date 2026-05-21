@@ -4,13 +4,15 @@ import { TableModule } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-seach',
   imports: [
     TableModule,
     IconFieldModule,
     InputIconModule,
-    InputTextModule
+    InputTextModule,
+    ButtonModule
   ],
   templateUrl: './seach.html',
   styleUrl: './seach.css',

@@ -1,0 +1,11 @@
+p-table{
+  border-radius: 10px !important;
+}
+
+
+.data:hover {
+  background-color: rgba(127, 255, 212, 0.274);
+  cursor: pointer;
+}
+
+

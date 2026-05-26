@@ -1,7 +1,9 @@
 <!-- SEARCH -->
 <p-iconfield class="fild-search">
   <p-inputicon class="pi pi-search" />
-  <input type="text" pInputText placeholder="Search" />
+  <input type="text" pInputText placeholder="Search" 
+    [formControl]="searchControl"
+  />
 </p-iconfield>
 
 <p-table

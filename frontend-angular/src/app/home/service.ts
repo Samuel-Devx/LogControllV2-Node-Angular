@@ -7,21 +7,29 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Service {
+  save(product: Products) {
+    return this.http.post<Products>(this.apiUrl, product);
+  }
     private http = inject(HttpClient);
     private apiUrl = 'http://localhost:4040/api/product';
 
    getProducts() {
-       return this.http.get<Products[]>('http://localhost:4040/api/product');
+       return this.http.get<Products[]>(this.apiUrl);
     }
    
  findByName(name: string): Observable<Products[]> {
-
   const params = new HttpParams()
     .set('name', name);
 
   return this.http.get<Products[]>(
-    'http://localhost:4040/api/product/name',
+    `${this.apiUrl}/name`,
     { params }
   );
 }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+
 }

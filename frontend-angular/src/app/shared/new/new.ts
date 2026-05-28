@@ -1,38 +1,93 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { InputGroupModule, InputGroup } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
+
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 
-interface City {
-    name: string;
-    code: string;
-}
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Products } from '../../home/products';
+import { Service } from '../../home/service';
+
 @Component({
   selector: 'app-new',
+  standalone: true,
+
   imports: [
-    InputGroup,
     FormsModule,
-    SelectModule,
-    InputGroupModule,
-    InputNumberModule,
+
     InputTextModule,
-    InputGroupAddonModule, 
+    InputNumberModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+
     CardModule,
-    ButtonModule
+    ButtonModule,
+
+    ToastModule
   ],
+
+  providers: [MessageService],
+
   templateUrl: './new.html',
-  styleUrl: './new.css',
+  styleUrls: ['./new.css']
 })
 export class New {
-    text1: string | undefined;
-    text2: string | undefined;
-    number: string | undefined;
-    selectedCity: City | undefined;
-    cities: City[] | undefined;
-text3: any;
+
+  product: Products = {
+    id: 0,
+    name: '',
+    account: 0,
+    sku: '',
+    price: 0
+  };
+
+  constructor(
+    private service: Service,
+    private messageService: MessageService
+  ) {}
+
+  createProduct(): void {
+
+    this.service.save(this.product).subscribe({
+
+      next: () => {
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Product created successfully'
+        });
+
+        this.clearForm();
+      },
+
+      error: (err: any) => {
+
+        console.error(err);
+
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to create product'
+        });
+      }
+    });
+  }
+
+  clearForm(): void {
+
+    this.product = {
+      id: 0,
+      name: '',
+      account: 0,
+      sku: '',
+      price: 0
+    };
+  }
 }

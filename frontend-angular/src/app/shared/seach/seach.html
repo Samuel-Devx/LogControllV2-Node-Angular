@@ -1,10 +1,11 @@
-<!-- SEARCH -->
 <p-iconfield class="fild-search">
   <p-inputicon class="pi pi-search" />
   <input type="text" pInputText placeholder="Search" 
     [formControl]="searchControl"
   />
 </p-iconfield>
+
+<p-toast></p-toast>
 
 <p-table
   [value]="products"
@@ -30,7 +31,7 @@
       }
       <td class="actions">
         <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"></button>
-        <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+        <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="onDelete(rowData.id)"></button>
     </td>
 
 

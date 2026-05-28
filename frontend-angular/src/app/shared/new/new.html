@@ -1,36 +1,78 @@
- <div class="container">
-     <div class="mb-4 p-8 " class="new">
-                <p-card header="New Product" class="mb-4">
-                    <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
+<p-toast></p-toast>
+<div class="container">
+
+    <div class="new">
+
+        <p-card header="New Product" class="mb-4">
+
+            <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 <p-inputgroup>
                     <p-inputgroup-addon>
                         <i class="pi pi-box"></i>
                     </p-inputgroup-addon>
-                    
-                    <p-inputnumber [useGrouping]="false" [(ngModel)]="text1" placeholder="SKU"  limit="10"></p-inputnumber>
+
+                    <input
+                        pInputText
+                        [(ngModel)]="product.sku"
+                        placeholder="SKU" />
                 </p-inputgroup>
+
                 <p-inputgroup>
-                     <p-inputgroup-addon>
+                    <p-inputgroup-addon>
                         <i class="pi pi-calculator"></i>
-                     </p-inputgroup-addon>
-                    <p-inputnumber inputId="integeronly" [(ngModel)]="text2" placeholder="Account" />
+                    </p-inputgroup-addon>
+
+                    <p-inputnumber
+                        [(ngModel)]="product.account"
+                        placeholder="Amount">
+                    </p-inputnumber>
                 </p-inputgroup>
+
                 <p-inputgroup>
                     <p-inputgroup-addon>
                         <i class="pi pi-truck"></i>
                     </p-inputgroup-addon>
-                    <input pInputText [(ngModel)]="text3" placeholder="Product" />
+
+                    <input
+                        pInputText
+                        [(ngModel)]="product.name"
+                        placeholder="Product" />
                 </p-inputgroup>
+
                 <p-inputgroup>
-                     <p-inputgroup-addon>$</p-inputgroup-addon>
-                    <p-inputnumber [(ngModel)]="number" placeholder="Price" />
+
+                    <p-inputgroup-addon>$</p-inputgroup-addon>
+
+                    <p-inputnumber
+                        [(ngModel)]="product.price"
+                        placeholder="Price">
+                    </p-inputnumber>
+
                     <p-inputgroup-addon>.00</p-inputgroup-addon>
+
                 </p-inputgroup>
+
             </div>
-            <div class="flex gap-4 mt-1" class="actions">
-                            <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-                            <p-button label="Create" class="w-full" styleClass="w-full" />
-                        </div>
-                </p-card>
+
+            <div class="actions flex gap-4 mt-4">
+
+                <p-button
+                    label="Cancel"
+                    severity="secondary"
+                    [outlined]="true"
+                    (click)="clearForm()">
+                </p-button>
+
+                <p-button
+                    label="Create"
+                    (click)="createProduct()">
+                </p-button>
+
             </div>
- </div>
+
+        </p-card>
+
+    </div>
+
+</div>

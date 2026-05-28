@@ -1,43 +1,51 @@
-import { Component, inject } from '@angular/core';
-import { Header } from 'primeng/api';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectorRef
+} from '@angular/core';
+
+import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
+
 import { Products } from '../../home/products';
 import { Service } from '../../home/service';
+
 @Component({
   selector: 'app-table',
-  imports: [
-    TableModule
-  ],
+  standalone: true,
+  imports: [CommonModule, TableModule],
   templateUrl: './table.html',
-  styleUrl: './table.css',
+  styleUrls: ['./table.css']
 })
-export class Table {
+export class Table implements OnInit {
+
   products: Products[] = [];
+
   private service = inject(Service);
+  private cd = inject(ChangeDetectorRef);
 
+  cols = [
+    { field: 'name', header: 'Produto' },
+    { field: 'account', header: 'Account' },
+    { field: 'sku', header: 'SKU' },
+    { field: 'price', header: 'Preço' }
+  ];
 
-  getProducts() {
-  this.service.getProducts().subscribe({
-    next: (data) => {
-      setTimeout(() => {
-        this.products = data;
-      });
-    },
-    error: (error) => {
-      console.error('Error fetching products:', error);
-    }
-  });
-}
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.getProducts();
   }
 
-cols = [
-  { field: 'id', header: 'ID' },
-  { field: 'sku', header: 'SKU' },
-  { field: 'account', header: 'Account' },
-  { field: 'name', header: 'Produto' },
-  { field: 'price', header: 'Preço' }
-];
+  getProducts(): void {
+    this.service.getProducts().subscribe({
+      next: (data) => {
+        this.products = [...data];
+
+        this.cd.detectChanges();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
 }

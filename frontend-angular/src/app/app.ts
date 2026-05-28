@@ -5,7 +5,13 @@ import { HomeLog } from "./home/home-log/home-log";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomeLog],
+  imports: [
+    RouterOutlet, 
+    HomeLog,
+    
+
+    
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

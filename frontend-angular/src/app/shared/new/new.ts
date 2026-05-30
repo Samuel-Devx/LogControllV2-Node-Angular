@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -14,11 +14,14 @@ import { MessageService } from 'primeng/api';
 import { Products } from '../../home/products';
 import { Service } from '../../home/service';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-new',
   standalone: true,
 
   imports: [
+    ReactiveFormsModule,
     FormsModule,
 
     InputTextModule,
@@ -38,7 +41,9 @@ import { Service } from '../../home/service';
   styleUrls: ['./new.css']
 })
 export class New {
-
+  
+  
+ 
   product: Products = {
     id: 0,
     name: '',
@@ -47,38 +52,77 @@ export class New {
     price: 0
   };
 
+  
+
+  
   constructor(
     private service: Service,
-    private messageService: MessageService
+    private messageService: MessageService,
+   
   ) {}
+  
 
-  createProduct(): void {
+createProduct(): void {
 
-    this.service.save(this.product).subscribe({
-
-      next: () => {
-
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Product created successfully'
-        });
-
-        this.clearForm();
-      },
-
-      error: (err: any) => {
-
-        console.error(err);
-
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to create product'
-        });
-      }
-    });
+  if (!this.product.sku?.trim()) {
+    this.showError('SKU é obrigatório');
+    return;
   }
+
+  if (this.product.sku.length < 3) {
+    this.showError('SKU deve ter no mínimo 3 caracteres');
+    return;
+  }
+
+  if (!this.product.account || this.product.account <= 0) {
+    this.showError('Quantidade deve ser maior que zero');
+    return;
+  }
+
+  if (!this.product.name?.trim()) {
+    this.showError('Nome do produto é obrigatório');
+    return;
+  }
+
+  if (!this.product.price || this.product.price <= 0) {
+    this.showError('Preço deve ser maior que zero');
+    return;
+  }
+
+  if (this.product.price > 1000000) {
+    this.showError('Preço deve ser menor que 1.000.000');
+    return;
+  }
+
+  this.service.save(this.product).subscribe({
+    next: () => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Produto criado com sucesso'
+      });
+
+      this.clearForm();
+    },
+    error: (err) => {
+      console.error('Erro ao salvar produto:', err);
+
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Não foi possível salvar o produto'
+      });
+    }
+  });
+}
+
+private showError(message: string): void {
+  this.messageService.add({
+    severity: 'error',
+    summary: 'Erro',
+    detail: message
+  });
+}
 
   clearForm(): void {
 

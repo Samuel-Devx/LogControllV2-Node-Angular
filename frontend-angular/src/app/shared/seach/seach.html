@@ -6,7 +6,7 @@
 </p-iconfield>
 
 <p-toast></p-toast>
-
+<p-confirmdialog />
 <p-table
   [value]="products"
   [columns]="cols"
@@ -31,7 +31,7 @@
       }
       <td class="actions">
         <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"></button>
-        <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="onDelete(rowData.id)"></button>
+        <button pButton type="button" icon="pi pi-trash" [class]="'p-button-rounded p-button-danger bg-red' " (click)="deleteProduct(rowData.id)"></button>
     </td>
 
 

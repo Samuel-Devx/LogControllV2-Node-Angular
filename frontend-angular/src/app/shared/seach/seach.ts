@@ -16,7 +16,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { Service } from '../../home/service';
 import { Products } from '../../home/products';
 import { Toast } from '../toast/toast';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-seach',
   standalone: true,
@@ -30,8 +31,9 @@ import { Toast } from '../toast/toast';
     ReactiveFormsModule,
     ToastModule,
     RippleModule,
+    ConfirmDialogModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './seach.html',
   styleUrl: './seach.css',
 })
@@ -42,6 +44,7 @@ export class Seach implements OnInit {
   searchControl = new FormControl('');
 
   constructor(
+    private confirmationService: ConfirmationService,
     private cd: ChangeDetectorRef,
     private service: Service,
     private messageService: MessageService
@@ -95,34 +98,46 @@ export class Seach implements OnInit {
     });
   }
 
-  onDelete(id: number) {
-    this.service.delete(id).subscribe({
-      next: () => {
+ deleteProduct(id: number): void {
+  this.confirmationService.confirm({
+    header: 'Confirmação',
+    message: 'Deseja realmente excluir este produto?',
+    icon: 'pi pi-exclamation-triangle',
+    acceptButtonStyleClass: 'p-button-danger',
+    rejectButtonStyleClass: 'p-button-secondary',
+    accept: () => {
+      this.service.delete(id).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Produto excluído com sucesso'
+          });
 
-        this.products =
-          this.products.filter(product => product.id !== id);
+          this.loadProducts(); 
+        },
 
-        this.allProducts =
-          this.allProducts.filter(product => product.id !== id);
+        error: (err) => {
+          console.error(err);
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Product Deleted',
-          detail: 'The product has been deleted successfully'
-        });
-      },
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Erro ao excluir produto'
+          });
+        }
+      });
+    },
 
-      error: (err: any) => {
-        console.error(err);
-
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'An error occurred while deleting the product'
-        });
-      },
-    });
-  }
+    reject: () => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Cancelado',
+        detail: 'Exclusão cancelada'
+      });
+    }
+  });
+}
 
   cols = [
     { field: 'id', header: 'ID' },

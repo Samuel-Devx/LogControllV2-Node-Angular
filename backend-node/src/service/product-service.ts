@@ -36,3 +36,8 @@ export const findById= async (id: number) => {
     if(data.length !== 0) return response = Ok(data);
     else return response = noContent();
 }
+export const deleteById = async (id: number) => {
+    const deleted = await repository.deleteById(id);
+    if(deleted) return noContent();
+    else return NotFound();
+}

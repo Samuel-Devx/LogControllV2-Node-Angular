@@ -6,7 +6,7 @@ import {db} from "./database";
 export const create = async (product: Product ) => {
     const [result]: any = await db.query(
         SqlQuery.SAVEPRODUCT, 
-        [product.name, product.price, product.amount, product.sku]
+        [product.name, product.price, product.account, product.sku]
     );
     return result.insertId;
 }
@@ -32,4 +32,12 @@ export const listByName = async (name: string) => {
         [`${name}%`]
     );
     return result;
+}
+
+export const deleteById = async (id: number) => {
+    const [result]: any = await db.query(
+        SqlQuery.DELETEBYID,
+        [id]
+    );
+    return result.affectedRows > 0;
 }

@@ -27,7 +27,11 @@ export const findId = async (req: Request, res: Response) => {
     res.status(HttpResponse.statusCode).json(HttpResponse.body);
 }
 
-
+export const deleteById = async (req: Request, res: Response) => {
+    const bodyValor = parseInt(String(req.params.id));
+    const HttpResponse = await service.deleteById(bodyValor);
+    res.status(HttpResponse.statusCode).json(HttpResponse.body);
+}
 
 
 

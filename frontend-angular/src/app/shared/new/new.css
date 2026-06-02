@@ -5,20 +5,24 @@
     gap: 2em;
 }
 
-.actions{
+.actions {
     display: flex;
-    gap: 0.3em;
-    align-items: center;
-    margin-top: 1em;
     justify-content: flex-end;
+    gap: 24px;
 }
 
-.actions p-button{
-    width: 10em;
-    
+.actions > * {
+    width: 160px;
 }
 .container{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.container-btn{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-right: 16px;
+    margin-top: 20px;
 }

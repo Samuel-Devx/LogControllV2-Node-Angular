@@ -7,6 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Service {
+  findById(id: number) {
+    return this.http.get<Products>(`${this.apiUrl}/${id}`);
+  }
+  update(id: number | undefined, product: Products) {
+    return this.http.put<Products>(`${this.apiUrl}/${id}`, product);
+  }
   save(product: Products) {
     return this.http.post<Products>(this.apiUrl, product);
   }

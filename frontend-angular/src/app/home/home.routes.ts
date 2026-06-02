@@ -20,6 +20,10 @@ export const homeroutes: Routes = [
   {
     path: 'new',
     component: New
+  },
+  {
+    path: 'edit/:id',
+    component: New
   }
 
 ];

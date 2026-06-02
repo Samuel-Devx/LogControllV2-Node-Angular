@@ -18,6 +18,9 @@ import { Products } from '../../home/products';
 import { Toast } from '../toast/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-seach',
   standalone: true,
@@ -47,7 +50,8 @@ export class Seach implements OnInit {
     private confirmationService: ConfirmationService,
     private cd: ChangeDetectorRef,
     private service: Service,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +93,7 @@ export class Seach implements OnInit {
       next: (response) => {
         this.allProducts = response;
         this.products = [...response];
-
+        
         this.cd.detectChanges();
       },
       error: (err) => {
@@ -138,7 +142,12 @@ export class Seach implements OnInit {
     }
   });
 }
+  editProduct(id: number): void {
+    console.log('clicou', id);
 
+    this.router.navigate(['/home/edit', id]);
+  }
+  
   cols = [
     { field: 'id', header: 'ID' },
     { field: 'name', header: 'Produto' },

@@ -1,22 +1,29 @@
-<p-table
-    [value]="products"
-    [columns]="cols"
-    [tableStyle]="{ 'min-width': '50rem' }">
+@if (products && products.length > 0) {
+    <p-table
+        [value]="products"
+        [columns]="cols"
+        [tableStyle]="{ 'min-width': '50rem' }">
 
-    <ng-template pTemplate="header" let-columns >
-        <tr class="topData">
-            @for (col of columns; track col.field) {
-                <th>{{ col.header }}</th>
-            }
-        </tr>
-    </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="topData">
+                @for (col of columns; track col.field) {
+                    <th>{{ col.header }}</th>
+                }
+            </tr>
+        </ng-template>
 
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr class="data">
-            @for (col of columns; track col.field) {
-                <td>{{ rowData[col.field] }}</td>
-            }
-        </tr>
-    </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr class="data">
+                @for (col of columns; track col.field) {
+                    <td>{{ rowData[col.field] }}</td>
+                }
+            </tr>
+        </ng-template>
 
-</p-table>
+    </p-table>
+} @else {
+    <div class="text-center p-4 text-muted">
+        <i class="pi pi-times"></i>
+        Nenhum produto encontrado.
+    </div>
+}

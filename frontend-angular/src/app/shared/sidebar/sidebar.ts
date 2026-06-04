@@ -19,4 +19,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 })
 export class Sidebar {
 
+  selectedButton = 'produtos';
+
+ 
 }

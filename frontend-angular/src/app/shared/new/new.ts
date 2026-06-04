@@ -15,6 +15,7 @@ import { MessageService } from 'primeng/api';
 
 import { Products } from '../../home/products';
 import { Service } from '../../home/service';
+import { TableModule } from "primeng/table";
 
 @Component({
   selector: 'app-new',
@@ -22,17 +23,15 @@ import { Service } from '../../home/service';
 
   imports: [
     FormsModule,
-
     InputTextModule,
     InputNumberModule,
     InputGroupModule,
     InputGroupAddonModule,
-
     CardModule,
     ButtonModule,
-
-    ToastModule
-  ],
+    ToastModule,
+    TableModule
+],
 
   providers: [MessageService],
 

@@ -1,38 +1,59 @@
 
     <div class="sidebar">
-
-        <h3 class="text-sidebar">LogControll</h3>
-
+        <div class="top">
+            <div class="logo">
+                <i class="pi pi-box"></i>
+            </div>
+           
+            <h2 class="text-sidebar">LogControll</h2>
+        </div>
+        
+        <hr class="divider" />
         <p-button
             label="Produtos"
-            icon="pi pi-home"
+            icon="pi pi-th-large"
             styleClass="p-button-text w-full"
-           [routerLink]="['/home']">
+           [routerLink]="['/home']"
+           [styleClass]="selectedButton === 'produtos' ? 'active-menu w-full' : 'p-button-text w-full'"
+            (onClick)="selectedButton = 'produtos'" 
+          >
         </p-button>
 
         <p-button
             label="Pesquisar"
-            icon="pi pi-users"
+            icon="pi pi-search"
             styleClass="p-button-text w-full"
-            [routerLink]="['/home/search']">
+            [routerLink]="['/home/search']"
+            [styleClass]="selectedButton === 'search' ? 'active-menu w-full' : 'p-button-text w-full'"
+            (onClick)="selectedButton = 'search'">
         </p-button>
 
         <p-button
             label="Novo Produto"
-            icon="pi pi-plus"
+            icon="pi pi-plus-circle"
             styleClass="p-button-text w-full"
-            [routerLink]="['/home/new']">
+            [routerLink]="['/home/new']"
+            [styleClass]="selectedButton === 'new' ? 'active-menu w-full' : 'p-button-text w-full'"
+            (onClick)="selectedButton = 'new'">
         </p-button>
 
         <p-button
             label="Vendas"
-            icon="pi pi-chart-bar"
+            icon="pi pi-chart-line"
             styleClass="p-button-text w-full"
-            [routerLink]="['/home/sales']">
+            [routerLink]="['/home/sales']" disabled>
         </p-button>
         
         <div class="creater">
-          <p>Samuka Dev</p>
-          <i class="pi pi-code"></i>
+            <div class="profile">
+                 <img src="profile.png" class="profile-pic">
+            </div>
+
+          <div class="status">
+            <p class="username">Samuka-Dev</p>
+            <div class="online"></div>
+          </div>
+          <p class="project">Projeto Local</p>
+          <p class="version">v2.0.0</p>
         </div>
     </div>

@@ -1,4 +1,5 @@
-<p-iconfield class="fild-search">
+@if(products && products.length > 0) {
+  <p-iconfield class="fild-search">
   <p-inputicon class="pi pi-search" />
   <input type="text" pInputText placeholder="Search" 
     [formControl]="searchControl"
@@ -39,3 +40,9 @@
   </ng-template>
 
 </p-table>
+}@else {
+    <div class="text-center p-4 text-muted">
+        <i class="pi pi-times"></i>
+        Nenhum produto encontrado.
+    </div>
+}

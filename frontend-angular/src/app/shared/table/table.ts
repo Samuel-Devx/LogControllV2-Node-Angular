@@ -10,11 +10,12 @@ import { TableModule } from 'primeng/table';
 
 import { Products } from '../../home/products';
 import { Service } from '../../home/service';
+import { IconField } from "primeng/iconfield";
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, TableModule],
+  imports: [CommonModule, TableModule, IconField],
   templateUrl: './table.html',
   styleUrls: ['./table.css']
 })

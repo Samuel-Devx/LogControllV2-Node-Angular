@@ -1,47 +1,87 @@
 <p-toast></p-toast>
-
+<p class="legend">{{ isEditMode ? 'Edição' : 'Cadastro' }}</p>
+<h2 class="card-title">
+  {{ isEditMode ? 'Editar Produto' : 'Novo Produto' }}
+</h2>
+<p class="card-subtitle mb-2 text-muted">
+  {{
+    isEditMode
+      ? 'Atualize as informações do produto.'
+      : 'Preencha os campos para criar um novo produto.'
+  }}
+</p>
+<hr class="divider" />
 <div class="container">
   <div class="new">
-    <p-card [header]="isEditMode ? 'Editar Produto' : 'Novo Produto'" class="mb-4">
-      <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <i class="pi pi-box"></i>
-          </p-inputgroup-addon>
-
-          <input pInputText [(ngModel)]="product.sku" placeholder="SKU" />
-        </p-inputgroup>
-
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <i class="pi pi-calculator"></i>
-          </p-inputgroup-addon>
-
-          <p-inputnumber [(ngModel)]="product.account" placeholder="Quantidade"> </p-inputnumber>
-        </p-inputgroup>
-
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <i class="pi pi-truck"></i>
-          </p-inputgroup-addon>
-
-          <input pInputText [(ngModel)]="product.name" placeholder="Produto" />
-        </p-inputgroup>
-
-        <p-inputgroup>
-          <p-inputgroup-addon>$</p-inputgroup-addon>
-
-          <p-inputnumber [(ngModel)]="product.price" placeholder="Preço"> </p-inputnumber>
-
-          <p-inputgroup-addon>.00</p-inputgroup-addon>
-        </p-inputgroup>
+    <p-card class="new-card">
+      <div class="card-header">
+        <div class="logo">
+                <i class="pi pi-box"></i>
+          </div>
+        <div class="header-text">
+           <h3 class="card-header-title">Informações dos produtos</h3>
+          <p class="card-header-subtitle">Preencha os detalhes do produto abaixo</p>
+        </div>
+       
       </div>
+      <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="flex flex-col gap-2">
+          <label for="sku">SKU</label>
+          <p-inputgroup>
+              <p-inputgroup-addon>
+                <i class="pi pi-barcode"></i>
+              </p-inputgroup-addon>
+              <input pInputText [(ngModel)]="product.sku" placeholder="SKU-12345" class="w-full" />
+          </p-inputgroup>
+        </div>
+        
+        <div class="flex flex-col gap-2">
+          <label for="Quantidade">Quantidade</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              #
+            </p-inputgroup-addon>
+            <p-inputnumber [(ngModel)]="product.account" placeholder="Quantidade" class="w-full"> </p-inputnumber>
+          </p-inputgroup>
+        </div>
+        
+        <div class="flex flex-col gap-2 md:col-span-2">
+          <label for="produto">Produto</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-tag"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="product.name" placeholder="Produto" class="product-name w-full"/>
+          </p-inputgroup>
+        </div>
 
+        <div class="flex flex-col gap-2">
+          <label for="preco">Preço</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>R$</p-inputgroup-addon>
+            <p-inputnumber [(ngModel)]="product.price" placeholder="Preço" class="w-full"> </p-inputnumber>
+            <p-inputgroup-addon>.00</p-inputgroup-addon>
+          </p-inputgroup>
+        </div>
+
+      </div>
+      <hr class="divider-bottom" />
       <div class="container-btn">
-        <p-button label="Cancelar" severity="secondary" [outlined]="true" (click)="clearForm()">
+        <p-button
+          icon="pi pi-times"
+          label="Limpar"
+          severity="secondary"
+          [outlined]="true"
+          (click)="clearForm()"
+        >
         </p-button>
 
-        <p-button [label]="isEditMode ? 'Atualizar' : 'Criar'" (click)="saveProduct()"> </p-button>
+        <p-button
+          icon="pi pi-check"
+          [label]="isEditMode ? 'Atualizar' : 'Criar'"
+          (click)="saveProduct()"
+        ></p-button>
       </div>
     </p-card>
   </div>

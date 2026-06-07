@@ -33,5 +33,11 @@ export const deleteById = async (req: Request, res: Response) => {
     res.status(HttpResponse.statusCode).json(HttpResponse.body);
 }
 
+export const update = async (req: Request, res: Response) => {
+    const id = parseInt(String(req.params.id));
+    const bodyValor = req.body;
+    const HttpResponse = await service.update(id, bodyValor);
+    res.status(HttpResponse.statusCode).json(HttpResponse.body);
+}
 
 

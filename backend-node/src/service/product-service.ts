@@ -41,3 +41,8 @@ export const deleteById = async (id: number) => {
     if(deleted) return noContent();
     else return NotFound();
 }
+export const update = async (id: number, body: Product) => {
+    const updated = await repository.update(id, body);
+    if(updated) return noContent();
+    else return NotFound();
+}

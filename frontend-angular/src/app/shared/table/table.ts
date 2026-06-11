@@ -1,21 +1,22 @@
-import {
-  Component,
-  OnInit,
-  inject,
-  ChangeDetectorRef
-} from '@angular/core';
+import {Component,OnInit,inject,ChangeDetectorRef} from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
-
+import { ButtonModule } from 'primeng/button';
 import { Products } from '../../home/products';
 import { Service } from '../../home/service';
-import { IconField } from "primeng/iconfield";
-
+import { TagModule } from 'primeng/tag';
+import { InputTextModule } from 'primeng/inputtext';
+import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, TableModule, IconField],
+  imports: [CommonModule, 
+    TableModule,
+    ButtonModule,
+    InputTextModule,
+    CurrencyPipe
+  ],
   templateUrl: './table.html',
   styleUrls: ['./table.css']
 })

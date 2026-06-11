@@ -1,29 +1,30 @@
 @if (products && products.length > 0) {
-    <p-table
-        [value]="products"
-        [columns]="cols"
-        [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table [value]="products" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header" let-columns>
+      <tr class="topData">
+        @for (col of columns; track col.field) {
+          <th>{{ col.header }}</th>
+        }
+      </tr>
+    </ng-template>
 
-        <ng-template pTemplate="header" let-columns>
-            <tr class="topData">
-                @for (col of columns; track col.field) {
-                    <th>{{ col.header }}</th>
-                }
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr class="data">
-                @for (col of columns; track col.field) {
-                    <td>{{ rowData[col.field] }}</td>
-                }
-            </tr>
-        </ng-template>
-
-    </p-table>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr class="data">
+        @for (col of columns; track col.field) {
+          <td>
+            @if (col.field === 'price') {
+              {{ rowData[col.field] | currency: 'BRL' : 'symbol' : '1.2-2' }}
+            } @else {
+              {{ rowData[col.field] }}
+            }
+          </td>
+        }
+      </tr>
+    </ng-template>
+  </p-table>
 } @else {
-    <div class="text-center p-4 text-muted">
-        <i class="pi pi-times"></i>
-        Nenhum produto encontrado.
-    </div>
+  <div class="empty-state">
+    <i class="pi pi-inbox"></i>
+    <span>Nenhum produto encontrado.</span>
+  </div>
 }

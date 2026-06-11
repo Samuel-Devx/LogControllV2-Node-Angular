@@ -1,0 +1,124 @@
+<div class="page-wrapper">
+
+  <div class="section">
+    <div class="section-header">
+      <i class="pi pi-receipt"></i>
+      <h2>Vendas</h2>
+      <span class="section-count">({{ sales.length }})</span>
+      <button
+        pButton
+        icon="pi pi-plus"
+        label="Nova venda"
+        size="small"
+        class="new-sale-btn"
+        [routerLink]="['/home/sales/new']" >
+      </button>
+    </div>
+
+    <div class="sales-grid">
+      @for (sale of sales; track sale.saleId) {
+        <div class="sale-card">
+
+          <div class="card-header">
+            <div class="product-meta">
+              <div class="icon-wrap">
+                <i class="pi pi-receipt"></i>
+              </div>
+              <div>
+                <h3>Venda #{{ sale.saleId }}</h3>
+                <span class="quantity-badge">
+                  <i class="pi pi-calendar"></i>
+                  {{ sale.saleDate | date: 'dd/MM/yyyy' }}
+                </span>
+              </div>
+            </div>
+            <span class="quantity-badge">{{ sale.items.length }} item(s)</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="prices">
+            @for (item of sale.items; track item.productName) {
+              <div class="price-row">
+                <span>
+                  <i class="pi pi-box" style="font-size: 11px;"></i>
+                  {{ item.productName }} × {{ item.quantity }}
+                </span>
+                <strong>{{ formatCurrency(item.unitPrice * item.quantity) }}</strong>
+              </div>
+            }
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="price-row total">
+            <span>Total da venda</span>
+            <strong>{{ formatCurrency(sale.totalPrice) }}</strong>
+          </div>
+
+        </div>
+      } @empty {
+        <p class="empty-msg">Nenhuma venda encontrada.</p>
+      }
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <div class="section">
+    <div class="section-header">
+      <i class="pi pi-shopping-bag"></i>
+      <h2>Itens vendidos</h2>
+      <span class="section-count">({{ sale.length }})</span>
+    </div>
+
+    <div class="sales-grid">
+      @for (item of sale; track $index) {
+        <div class="sale-card">
+
+          <div class="card-header">
+            <div class="product-meta">
+              <div class="icon-wrap">
+                <i class="pi pi-shopping-bag"></i>
+              </div>
+              <div>
+                <h3>{{ item.name }}</h3>
+                <span class="quantity-badge">
+                  <i class="pi pi-clone"></i>
+                  {{ item.quantity }} unidades
+                </span>
+              </div>
+            </div>
+            <i class="pi pi-chart-line trend-icon"></i>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="prices">
+            <div class="price-row">
+              <span>Preço unitário</span>
+              <strong>{{ formatCurrency(item.unit_price) }}</strong>
+            </div>
+            <div class="price-row total">
+              <span>Total da venda</span>
+              <strong>{{ formatCurrency(item.total_price) }}</strong>
+            </div>
+          </div>
+
+          <button pButton
+            icon="pi pi-eye"
+            label="Detalhes"
+            [text]="true"
+            [outlined]="true"
+            size="small"
+            class="details-btn">
+          </button>
+
+        </div>
+      } @empty {
+        <p class="empty-msg">Nenhum item encontrado.</p>
+      }
+    </div>
+  </div>
+
+</div>

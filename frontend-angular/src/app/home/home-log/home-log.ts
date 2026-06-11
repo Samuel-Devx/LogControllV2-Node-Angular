@@ -11,7 +11,6 @@ import { Sidebar } from "../../shared/sidebar/sidebar";
   imports: [
     DrawerModule,
     ButtonModule,
-    PanelMenu,
     RouterOutlet,
     PanelMenuModule,
     Sidebar

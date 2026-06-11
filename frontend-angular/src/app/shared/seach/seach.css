@@ -1,20 +1,60 @@
-p-table{
-  border-radius: 10px !important;
+.field-search {
+    display: block;
+    margin-bottom: 1rem;
+
+    input {
+        width: 280px;
+    }
 }
 
-
-.data:hover {
-  background-color: rgba(127, 255, 212, 0.274);
-  cursor: pointer;
+:host ::ng-deep .p-datatable {
+    border: 1px solid var(--surface-200);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-
-.fild-search{
-  margin-bottom: 2em;
+:host ::ng-deep .topData th {
+    background: var(--surface-50);
+    color: var(--text-color-secondary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--surface-200);
 }
 
-.actions{
-  display: flex;
-  gap: 0.5em;
+:host ::ng-deep .data td {
+    padding: 0.85rem 1rem;
+    font-size: 0.875rem;
+    border-bottom: 1px solid var(--surface-100);
 }
 
+:host ::ng-deep .data:last-child td {
+    border-bottom: none;
+}
+
+:host ::ng-deep .data:hover {
+    background: var(--surface-50) !important;
+}
+
+:host ::ng-deep .actions {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: flex-end;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 3rem;
+    color: var(--text-color-secondary);
+    border: 1px solid var(--surface-200);
+    border-radius: 10px;
+
+    i {
+        font-size: 2rem;
+    }
+}

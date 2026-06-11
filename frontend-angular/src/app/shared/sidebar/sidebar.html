@@ -41,7 +41,9 @@
             label="Vendas"
             icon="pi pi-chart-line"
             styleClass="p-button-text w-full"
-            [routerLink]="['/home/sales']" disabled>
+            [routerLink]="['/home/sales']" 
+            [styleClass]="selectedButton === 'sale' ? 'active-menu w-full' : 'p-button-text w-full'"
+            (onClick)="selectedButton = 'sale'">
         </p-button>
         
         <div class="creater">

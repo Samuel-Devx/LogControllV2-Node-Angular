@@ -18,7 +18,7 @@ import { Products } from '../../home/products';
 import { Toast } from '../toast/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-
+import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,7 +34,8 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     ToastModule,
     RippleModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CurrencyPipe
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './seach.html',

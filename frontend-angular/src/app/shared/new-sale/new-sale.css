@@ -1,0 +1,127 @@
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-y: auto; 
+}
+
+.container {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.new {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 75%;
+    padding-bottom: 40px; 
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+}
+
+.actions > * {
+    width: 160px;
+}
+
+.container-btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-right: 16px;
+    margin-top: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem !important;
+    color: #ffffff !important;
+    margin-bottom: 2px !important;
+    margin-top: 0 !important;
+    font-weight: 800 !important;
+}
+
+.divider {
+    border: none !important;
+    height: 1px !important;
+    background-color: #ffffff !important;
+    margin: 0.5rem 0 !important;
+}
+
+.new-card {
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 100%;
+}
+
+.legend {
+    font-size: 1rem !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    opacity: 0.8;   
+}
+
+.card-subtitle {
+    font-size: 0.8rem !important;
+    color: #cccccc !important;
+    margin-bottom: 20px !important;
+    font-weight: 400 !important;
+}
+
+label {
+    font-size: 1rem !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+.divider-bottom {
+    border: none !important;
+    height: 1px !important;
+    background-color: #ffffff !important;
+    margin: 1rem 0 !important;
+    opacity: 0.5;
+}
+
+.card-header {
+    display: flex;
+    align-items: top;
+    gap: 16px;  
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    background-color: #012e17;
+    border-radius: 10%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-header-title {
+    font-size: 1.5rem !important;
+    color: #ffffff !important;
+    margin-bottom: 2px !important;
+    margin-top: 0 !important;
+    font-weight: 800 !important;
+}
+
+.card-header-subtitle {
+    font-size: 0.8rem !important;
+    color: #cccccc !important;
+    margin-bottom: 20px !important;
+    font-weight: 400 !important;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+}

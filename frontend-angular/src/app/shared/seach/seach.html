@@ -43,6 +43,14 @@
     </p-table>
 
 } @else {
+    <p-toast />
+    <p-confirmdialog />
+
+    <p-iconfield class="field-search">
+        <p-inputicon class="pi pi-search" />
+        <input type="text" pInputText placeholder="Buscar produto..." [formControl]="searchControl" />
+    </p-iconfield>
+
     <div class="empty-state">
         <i class="pi pi-inbox"></i>
         <span>Nenhum produto encontrado.</span>

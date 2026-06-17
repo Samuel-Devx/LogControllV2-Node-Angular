@@ -148,3 +148,9 @@
   color: var(--text-color-secondary);
   font-size: 13px;
 }
+
+p-button{
+  background-color: #042404;  
+  border-radius: 8px;
+  margin-left: auto;
+}

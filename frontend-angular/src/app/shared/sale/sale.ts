@@ -30,8 +30,7 @@ export interface SaleGroup {
     TagModule,
     ButtonModule,
     DividerModule,
-    RouterOutlet,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './sale.html',
   styleUrl: './sale.css',
@@ -72,7 +71,7 @@ getSaleAll(): void {
   
   this.service.getSale().subscribe({
     next: (data) => {
-      this.sales = this.groupBySale(data); // era this.sale = [...data]
+      this.sales = this.groupBySale(data); 
       
     },
     error: (error) => console.error(error),

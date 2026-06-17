@@ -90,8 +90,6 @@ export class New {
 
   saveProduct(): void {
 
-    console.log('Produto atual:', this.product);
-    console.log('ID atual:', this.product.id);
     if (!this.validateForm()) {
       return;
     }

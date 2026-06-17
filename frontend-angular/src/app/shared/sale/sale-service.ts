@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { vw_sale } from '../dto/vw-sale';
+import { SaleItem } from '../dto/sale-item';
+import { Sale } from '../dto/sale';
+import { SaleItemInput } from '../dto/saleInput';
 
 @Injectable({
   providedIn: 'root',
@@ -8,12 +11,15 @@ import { vw_sale } from '../dto/vw-sale';
 export class SaleService {
   
    private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:4040/api/sale';
+   private apiUrl = 'http://localhost:4040/api/sale';
 
     getSale() {
       return this.http.get<vw_sale[]>(this.apiUrl);
     }
 
+    createSale(sale: SaleItemInput){
+      return this.http.post<Sale>(this.apiUrl, sale)
+    }
 
 
      

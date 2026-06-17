@@ -1,0 +1,77 @@
+<p-toast></p-toast>
+<p class="legend">{{ 'Cadastro' }}</p>
+<h2 class="card-title">
+  {{ 'Nova Venda' }}
+</h2>
+<p class="card-subtitle mb-2 text-muted">
+  {{
+      'Preencha os campos para criar uma nova Venda.'
+  }}
+</p>
+<hr class="divider" />
+<div class="container">
+  <div class="new">
+    <p-card class="new-card">
+      <div class="card-header">
+        <div class="logo">
+                <i class="pi pi-money-bill"></i>
+          </div>
+        <div class="header-text">
+           <h3 class="card-header-title">Informações da Venda</h3>
+          <p class="card-header-subtitle">Preencha os detalhes da venda abaixo</p>
+        </div>
+       
+      </div>
+      <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="flex flex-col gap-2">
+          <label for="sku">Product</label>
+          <p-inputgroup>
+              <p-inputgroup-addon>
+                <i class="pi pi-barcode"></i>
+              </p-inputgroup-addon>
+              <input pInputText [(ngModel)]="sale.productId" placeholder="SKU-12345" class="w-full" />
+          </p-inputgroup>
+        </div>
+        
+        <div class="flex flex-col gap-2">
+          <label for="Quantidade">Quantidade</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              #
+            </p-inputgroup-addon>
+            <p-inputnumber [(ngModel)]="sale.quantity" placeholder="EX:2,3,19" class="w-full"> </p-inputnumber>
+          </p-inputgroup>
+        </div>
+        
+        <div class="flex flex-col gap-2 md:col-span-2">
+          <label for="produto">Price</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-tag"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="sale.unitPrice" placeholder="Name " class="product-name w-full"/>
+          </p-inputgroup>
+        </div>
+
+
+      </div>
+      <hr class="divider-bottom" />
+      <div class="container-btn">
+        <p-button
+          icon="pi pi-times"
+          label="Limpar"
+          severity="secondary"
+          [outlined]="true"
+        >
+        </p-button>
+
+        <p-button
+          icon="pi pi-check"
+          [label]="'Cadastrar'"
+          (click)="createSale()"
+        ></p-button>
+      </div>
+    </p-card>
+  </div>
+</div>

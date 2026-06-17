@@ -1,3 +1,4 @@
+
 <div class="page-wrapper">
 
   <div class="section">
@@ -5,14 +6,12 @@
       <i class="pi pi-receipt"></i>
       <h2>Vendas</h2>
       <span class="section-count">({{ sales.length }})</span>
-      <button
-        pButton
-        icon="pi pi-plus"
-        label="Nova venda"
-        size="small"
-        class="new-sale-btn"
-        [routerLink]="['/home/sales/new']" >
-      </button>
+      <p-button
+            label="Cadastrar"
+            icon="pi pi-shopping-bag"
+            styleClass="p-button-text w-full"
+            [routerLink]="['/home/sales/new']">
+        </p-button>
     </div>
 
     <div class="sales-grid">

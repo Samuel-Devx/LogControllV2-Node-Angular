@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { vw_sale } from '../dto/vw-sale';
 import { SaleService } from './sale-service';
@@ -6,21 +6,9 @@ import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { RouterOutlet } from "@angular/router";
 import { RouterModule } from '@angular/router';
-
-//Refaatorar External
-export interface SaleGroup {
-  saleId: number;
-  saleDate: Date;
-  totalPrice: number;
-  items: {
-    productName: string;
-    quantity: number;
-    unitPrice: number;
-  }[];
-}
-
+import { SaleGroup } from '../dto/sele-group';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-sale',
@@ -31,77 +19,73 @@ export interface SaleGroup {
     ButtonModule,
     DividerModule,
     RouterModule,
+    DialogModule,
   ],
   templateUrl: './sale.html',
   styleUrl: './sale.css',
 })
-export class Sale {
-newSale() {
-throw new Error('Method not implemented.');
-}
-    sale: vw_sale[] = [];
-    sales: SaleGroup[] = [];
+export class Sale implements OnInit {
+  sale: vw_sale[] = [];
+  sales: SaleGroup[] = [];
 
-    private service = inject(SaleService)
-   
-    formatCurrency(value: number): string {
-        return new Intl.NumberFormat('pt-BR', {
-       style: 'currency',
+  selectedItem: vw_sale | null = null;
+  showDialog = false;
+
+  private service = inject(SaleService);
+  private cd = inject(ChangeDetectorRef);
+
+  formatCurrency(value: number): string {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
       currency: 'BRL'
-     }).format(value);
-    } 
-    ngOnInit(): void {
-      this.getSale();
-      this.getSaleAll();
-    }
+    }).format(value);
+  }
 
-    getSale(): void {
-      this.service.getSale().subscribe({
+  ngOnInit(): void {
+    this.getSaleAll();
+  }
+
+  getSaleAll(): void {
+    this.service.getSale().subscribe({
       next: (data) => {
         this.sale = [...data];
-
-       
+        this.sales = this.groupBySale(data);
+        this.cd.detectChanges();
       },
-      error: (error) => {
-        console.error(error);
-      }
+      error: (error) => console.error(error),
     });
   }
-getSaleAll(): void {
-  
-  this.service.getSale().subscribe({
-    next: (data) => {
-      this.sales = this.groupBySale(data); 
-      
-    },
-    error: (error) => console.error(error),
-  });
-}
 
-private groupBySale(rows: vw_sale[]): SaleGroup[] {
-  const map = new Map<number, SaleGroup>();
-  console.log('primeiro row:', rows[0]); 
-  for (const row of rows) {
-    if (!map.has(row.sale_id)) {
-      map.set(row.sale_id, {
-        saleId: row.sale_id,
-        saleDate: row.sale_date,
-        totalPrice: Number(row.total_price),
-        items: [],
+  openDetails(item: vw_sale): void {
+    this.selectedItem = item;
+    this.showDialog = true;
+  }
+
+  closeDetails(): void {
+    this.showDialog = false;
+    this.selectedItem = null;
+  }
+
+  private groupBySale(rows: vw_sale[]): SaleGroup[] {
+    const map = new Map<number, SaleGroup>();
+
+    for (const row of rows) {
+      if (!map.has(row.sale_id)) {
+        map.set(row.sale_id, {
+          saleId: row.sale_id,
+          saleDate: row.sale_date,
+          totalPrice: Number(row.total_price),
+          items: [],
+        });
+      }
+
+      map.get(row.sale_id)!.items.push({
+        productName: row.name,
+        quantity: row.quantity,
+        unitPrice: Number(row.unit_price),
       });
     }
 
-    map.get(row.sale_id)!.items.push({
-      productName: row.name,
-      quantity: row.quantity,
-      unitPrice: Number(row.unit_price),
-    });
+    return Array.from(map.values());
   }
-
-  return Array.from(map.values());
-}
-
-
-
-
 }

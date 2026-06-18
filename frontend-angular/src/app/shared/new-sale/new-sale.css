@@ -5,13 +5,47 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    overflow-y: auto; 
+    overflow-y: auto;
+}
+
+.legend {
+    font-size: 12px;
+    color: #aaaaaa;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 4px 0 0;
+}
+
+.card-subtitle {
+    font-size: 0.8rem;
+    color: #cccccc;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 1rem 0;
+}
+
+.divider-bottom {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 1rem 0;
 }
 
 .container {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
+    padding: 0;
 }
 
 .new {
@@ -19,109 +53,149 @@ body {
     flex-direction: column;
     gap: 2em;
     width: 75%;
-    padding-bottom: 40px; 
-}
-
-.actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 24px;
-}
-
-.actions > * {
-    width: 160px;
-}
-
-.container-btn {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    padding-right: 16px;
-    margin-top: 20px;
-}
-
-.card-title {
-    font-size: 1.5rem !important;
-    color: #ffffff !important;
-    margin-bottom: 2px !important;
-    margin-top: 0 !important;
-    font-weight: 800 !important;
-}
-
-.divider {
-    border: none !important;
-    height: 1px !important;
-    background-color: #ffffff !important;
-    margin: 0.5rem 0 !important;
+    padding-bottom: 40px;
 }
 
 .new-card {
     margin-top: 20px;
     border-radius: 10px;
-    padding: 1rem;
     width: 100%;
-}
-
-.legend {
-    font-size: 1rem !important;
-    color: #ffffff !important;
-    font-weight: 600 !important;
-    opacity: 0.8;   
-}
-
-.card-subtitle {
-    font-size: 0.8rem !important;
-    color: #cccccc !important;
-    margin-bottom: 20px !important;
-    font-weight: 400 !important;
-}
-
-label {
-    font-size: 1rem !important;
-    color: #ffffff !important;
-    font-weight: 800 !important;
-}
-
-.divider-bottom {
-    border: none !important;
-    height: 1px !important;
-    background-color: #ffffff !important;
-    margin: 1rem 0 !important;
-    opacity: 0.5;
 }
 
 .card-header {
     display: flex;
-    align-items: top;
-    gap: 16px;  
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
 }
 
 .logo {
     width: 40px;
     height: 40px;
     background-color: #012e17;
-    border-radius: 10%; 
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-.card-header-title {
-    font-size: 1.5rem !important;
-    color: #ffffff !important;
-    margin-bottom: 2px !important;
-    margin-top: 0 !important;
-    font-weight: 800 !important;
-}
-
-.card-header-subtitle {
-    font-size: 0.8rem !important;
-    color: #cccccc !important;
-    margin-bottom: 20px !important;
-    font-weight: 400 !important;
+.logo i {
+    font-size: 1.25rem;
+    color: #4ade80;
 }
 
 .header-text {
     display: flex;
     flex-direction: column;
+}
+
+.card-header-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.card-header-subtitle {
+    font-size: 0.8rem;
+    color: #cccccc;
+    margin: 2px 0 0;
+}
+
+/* Cabeçalhos das colunas */
+.column-headers {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 42px;
+    gap: 12px;
+    padding: 0 12px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 8px;
+}
+
+.column-headers span {
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaaaaa;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* Linhas de produto */
+.lines-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.line-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 42px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.line-row:hover {
+    border-color: #22c55e;
+}
+
+/* Subtotal por linha */
+.subtotal-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #4ade80;
+}
+
+/* Botão adicionar produto */
+.add-line-wrapper {
+    margin-top: 12px;
+}
+
+/* Seção de total */
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid #22c55e;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+.total-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.total-label {
+    font-size: 0.875rem;
+    color: #aaaaaa;
+}
+
+.total-items {
+    font-size: 0.75rem;
+    color: #aaaaaa;
+}
+
+.total-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #22c55e;
+}
+
+/* Botões de ação */
+.container-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1.5rem;
 }

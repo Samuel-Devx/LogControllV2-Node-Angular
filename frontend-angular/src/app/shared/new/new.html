@@ -32,7 +32,7 @@
               <p-inputgroup-addon>
                 <i class="pi pi-barcode"></i>
               </p-inputgroup-addon>
-              <input pInputText [(ngModel)]="product.sku" placeholder="SKU-12345" class="w-full" />
+              <p-inputnumber [(ngModel)]="product.sku" placeholder="EX:80981012" class="w-full" [useGrouping]="false" [maxlength]="10"/>
           </p-inputgroup>
         </div>
         
@@ -42,7 +42,7 @@
             <p-inputgroup-addon>
               #
             </p-inputgroup-addon>
-            <p-inputnumber [(ngModel)]="product.account" placeholder="EX:2,3,19" class="w-full"> </p-inputnumber>
+            <p-inputnumber [(ngModel)]="product.account" placeholder="EX:2,3,19" class="w-full" > </p-inputnumber>
           </p-inputgroup>
         </div>
         
@@ -60,7 +60,7 @@
           <label for="preco">Preço</label>
           <p-inputgroup>
             <p-inputgroup-addon>R$</p-inputgroup-addon>
-            <p-inputnumber [(ngModel)]="product.price" placeholder="Preço" class="w-full"> </p-inputnumber>
+            <p-inputnumber [(ngModel)]="product.price" placeholder="R$ 1000,00" class="w-full"> </p-inputnumber>
             <p-inputgroup-addon>.00</p-inputgroup-addon>
           </p-inputgroup>
         </div>

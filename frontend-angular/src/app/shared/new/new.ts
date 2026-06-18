@@ -1,26 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
 import { Products } from '../../home/products';
 import { Service } from '../../home/service';
-import { TableModule } from "primeng/table";
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-new',
   standalone: true,
-
   imports: [
     FormsModule,
     InputTextModule,
@@ -31,14 +26,12 @@ import { TableModule } from "primeng/table";
     ButtonModule,
     ToastModule,
     TableModule
-],
-
+  ],
   providers: [MessageService],
-
   templateUrl: './new.html',
   styleUrls: ['./new.css']
 })
-export class New {
+export class New implements OnInit {
 
   isEditMode = false;
 
@@ -57,9 +50,7 @@ export class New {
   ) {}
 
   ngOnInit(): void {
-
     const id = this.route.snapshot.paramMap.get('id');
-
     if (id) {
       this.isEditMode = true;
       this.loadProduct(Number(id));
@@ -67,73 +58,55 @@ export class New {
   }
 
   loadProduct(id: number): void {
-
     this.service.findById(id).subscribe({
       next: (product: Products) => {
-        
-        console.log('Produto retornado:', product);
-        
-        this.product = product;
-
+        this.product = {
+          ...product,
+          sku: String(product.sku ?? '') // garante que chega como string
+        };
       },
-      error: (err: any) => {
-        console.error(err);
-
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: 'Produto não encontrado'
-        });
+      error: () => {
+        this.showError('Produto não encontrado');
       }
     });
   }
 
   saveProduct(): void {
+    if (!this.validateForm()) return;
 
-    if (!this.validateForm()) {
-      return;
-    }
+    const payload: Products = {
+      ...this.product,
+      sku: String(this.product.sku).trim() // garante string ao salvar
+    };
 
     const request = this.isEditMode
-      ? this.service.update(this.product.id, this.product)
-      : this.service.save(this.product);
+      ? this.service.update(payload.id, payload)
+      : this.service.save(payload);
 
     request.subscribe({
       next: () => {
-
         this.messageService.add({
           severity: 'success',
           summary: 'Sucesso',
-          detail: this.isEditMode
-            ? 'Produto atualizado com sucesso'
-            : 'Produto criado com sucesso'
+          detail: this.isEditMode ? 'Produto atualizado com sucesso' : 'Produto criado com sucesso'
         });
-
-        if (!this.isEditMode) {
-          this.clearForm();
-        }
+        if (!this.isEditMode) this.clearForm();
       },
-      error: (err: any) => {
-
-        console.error(err);
-
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: 'Não foi possível salvar o produto'
-        });
+      error: () => {
+        this.showError('Não foi possível salvar o produto');
       }
     });
   }
 
   private validateForm(): boolean {
+    const sku = String(this.product.sku ?? '').trim();
 
-    if (!this.product.sku?.trim()) {
+    if (!sku) {
       this.showError('SKU é obrigatório');
       return false;
     }
 
-    if (this.product.sku.length < 3) {
+    if (sku.length < 3) {
       this.showError('SKU deve ter no mínimo 3 caracteres');
       return false;
     }
@@ -162,7 +135,6 @@ export class New {
   }
 
   private showError(message: string): void {
-
     this.messageService.add({
       severity: 'error',
       summary: 'Erro',
@@ -171,7 +143,6 @@ export class New {
   }
 
   clearForm(): void {
-
     this.product = {
       id: 0,
       name: '',

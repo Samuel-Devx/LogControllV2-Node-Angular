@@ -1,77 +1,121 @@
 <p-toast></p-toast>
-<p class="legend">{{ 'Cadastro' }}</p>
-<h2 class="card-title">
-  {{ 'Nova Venda' }}
-</h2>
-<p class="card-subtitle mb-2 text-muted">
-  {{
-      'Preencha os campos para criar uma nova Venda.'
-  }}
-</p>
+
+<p class="legend">Cadastro</p>
+<h2 class="card-title">Nova Venda</h2>
+<p class="card-subtitle mb-2 text-muted">Preencha os campos para criar uma nova venda.</p>
 <hr class="divider" />
+
 <div class="container">
   <div class="new">
     <p-card class="new-card">
+
       <div class="card-header">
         <div class="logo">
-                <i class="pi pi-money-bill"></i>
-          </div>
+          <i class="pi pi-money-bill"></i>
+        </div>
         <div class="header-text">
-           <h3 class="card-header-title">Informações da Venda</h3>
+          <h3 class="card-header-title">Informações da Venda</h3>
           <p class="card-header-subtitle">Preencha os detalhes da venda abaixo</p>
         </div>
-       
       </div>
-      <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <div class="flex flex-col gap-2">
-          <label for="sku">Product</label>
-          <p-inputgroup>
-              <p-inputgroup-addon>
-                <i class="pi pi-barcode"></i>
-              </p-inputgroup-addon>
-              <input pInputText [(ngModel)]="sale.productId" placeholder="SKU-12345" class="w-full" />
-          </p-inputgroup>
-        </div>
-        
-        <div class="flex flex-col gap-2">
-          <label for="Quantidade">Quantidade</label>
-          <p-inputgroup>
-            <p-inputgroup-addon>
-              #
-            </p-inputgroup-addon>
-            <p-inputnumber [(ngModel)]="sale.quantity" placeholder="EX:2,3,19" class="w-full"> </p-inputnumber>
-          </p-inputgroup>
-        </div>
-        
-        <div class="flex flex-col gap-2 md:col-span-2">
-          <label for="produto">Price</label>
-          <p-inputgroup>
-            <p-inputgroup-addon>
-              <i class="pi pi-tag"></i>
-            </p-inputgroup-addon>
-            <input pInputText [(ngModel)]="sale.unitPrice" placeholder="Name " class="product-name w-full"/>
-          </p-inputgroup>
-        </div>
 
-
+      <div class="column-headers">
+        <span>Produto</span>
+        <span>Quantidade</span>
+        <span>Preço unitário</span>
+        <span>Subtotal</span>
+        <span></span>
       </div>
-      <hr class="divider-bottom" />
+
+      <div class="lines-wrapper">
+        <div class="line-row" *ngFor="let line of lines; let i = index">
+
+          <p-select
+             [options]="availableProducts"
+            [(ngModel)]="line.product"
+            optionLabel="name"
+            placeholder="Selecione um produto"
+            [filter]="true"
+            filterPlaceholder="Buscar..."
+            class="w-full"
+          ></p-select>
+
+          <p-inputgroup>
+            <p-inputgroup-addon>#</p-inputgroup-addon>
+            <p-inputnumber
+              [(ngModel)]="line.quantity"
+              [min]="1"
+              [max]="getMaxQuantity(line)"
+
+              class="w-full"
+            ></p-inputnumber>
+          </p-inputgroup>
+
+          <p-inputgroup>
+            <p-inputgroup-addon>R$</p-inputgroup-addon>
+            <p-inputnumber
+              [ngModel]="line.product?.price ?? 0"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              [readonly]="true"
+              styleClass="readonly-input"
+              class="w-full"
+            ></p-inputnumber>
+          </p-inputgroup>
+
+          <span class="subtotal-value">
+            {{ total | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+          </span>
+
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            [text]="true"
+            [rounded]="true"
+            (click)="removeLine(i)"
+            [disabled]="lines.length === 1"
+          ></p-button>
+
+        </div>
+      </div>
+
+      <div class="add-line-wrapper">
+        <p-button
+          icon="pi pi-plus"
+          label="Adicionar produto"
+          severity="secondary"
+          [outlined]="true"
+          (click)="addLine()"
+        ></p-button>
+      </div>
+
+      <div class="total-row">
+        <div class="total-info">
+          <span class="total-label">Total da venda</span>
+          <span class="total-items">{{ lines.length }} produto(s)</span>
+        </div>
+        <span class="total-value">
+          {{ total | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+        </span>
+      </div>
+
       <div class="container-btn">
         <p-button
           icon="pi pi-times"
           label="Limpar"
           severity="secondary"
-          [outlined]="true"
-        >
-        </p-button>
-
+          [text]="true"
+          (click)="clearForm()"
+        ></p-button>
         <p-button
           icon="pi pi-check"
-          [label]="'Cadastrar'"
+          label="Cadastrar venda"
+          size="large"
+          [disabled]="!canSubmit()"
           (click)="createSale()"
         ></p-button>
       </div>
+
     </p-card>
   </div>
 </div>

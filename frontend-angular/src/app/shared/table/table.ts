@@ -29,7 +29,7 @@ export class Table implements OnInit {
 
   cols = [
     { field: 'name', header: 'Produto' },
-    { field: 'account', header: 'Account' },
+    { field: 'account', header: 'Quantidade' },
     { field: 'sku', header: 'SKU' },
     { field: 'price', header: 'Preço' }
   ];

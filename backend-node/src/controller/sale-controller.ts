@@ -11,3 +11,9 @@ export const save = async (req: Request, res: Response) => {
 }
 
 
+
+export const listSale = async (req: Request, res: Response) => {
+    const HttpResponse = await service.listSale();
+    res.status(HttpResponse.statusCode).json(HttpResponse.body);
+}
+

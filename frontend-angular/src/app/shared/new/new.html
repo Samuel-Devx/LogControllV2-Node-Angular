@@ -60,7 +60,7 @@
           <label for="preco">Preço</label>
           <p-inputgroup>
             <p-inputgroup-addon>R$</p-inputgroup-addon>
-            <p-inputnumber [(ngModel)]="product.price" placeholder="R$ 1000,00" class="w-full"> </p-inputnumber>
+            <p-inputnumber [(ngModel)]="product.price" placeholder="R$ 1000,00" class="w-full" mode=decimal [minFractionDigits]="2" [maxFractionDigits]="2"> </p-inputnumber>
             <p-inputgroup-addon>.00</p-inputgroup-addon>
           </p-inputgroup>
         </div>

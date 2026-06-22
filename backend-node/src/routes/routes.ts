@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as productController from '../controller/product-controller';
-import * as saleCOntroller from "../controller/sale-controller"
+import * as saleController from "../controller/sale-controller"
 const router = Router()
 
 //product
@@ -11,8 +11,8 @@ router.get("/product/:id", productController.findId)
 router.delete("/product/:id", productController.deleteById)
 router.put("/product/:id", productController.update)
 //sale
-router.post("/sale", saleCOntroller.save)
-
+router.post("/sale", saleController.save)
+router.get("/sale", saleController.listSale)
 
 
 export default router;

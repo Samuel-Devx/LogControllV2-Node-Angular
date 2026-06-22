@@ -49,3 +49,11 @@ export const noContent = async (): Promise<HttpInterface> => {
         }
     }
 };
+
+
+export const ServerError = () => {
+    return {
+        statusCode: 500,
+        body: { message: "Internal Server Error" }
+    };
+};

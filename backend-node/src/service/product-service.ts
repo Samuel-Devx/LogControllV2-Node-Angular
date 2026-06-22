@@ -5,7 +5,8 @@ import { BadResquest, Created, noContent, NotFound, Ok } from '../utils/httpRepo
 
 
 
-export const save = async (body: Product) => {
+export const save = async (body: Product) => { 
+    
     if(body && Object.keys(body).length !== 0){
         await repository.create(body);
         return Created();
